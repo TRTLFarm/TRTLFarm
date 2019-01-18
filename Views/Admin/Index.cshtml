@@ -1,0 +1,29 @@
+﻿@using TRTLFarm.ViewModels
+@model AdminModel
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Admin";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <section class="text-center my-5">
+        <h2 class="h1-responsive font-weight-bold my-5">Admin area</h2>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="PaymentAddress"></label>
+                    <input asp-for="PaymentAddress" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Balance"></label>
+                    <input asp-for="Balance" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

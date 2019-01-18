@@ -1,0 +1,28 @@
+﻿@using TRTLFarm.ViewModels
+@model SellModel
+@{
+    ViewData["Title"] = "Sell produce";
+}
+
+<section class="text-center my-5">
+    <h2 class="h1-responsive font-weight-bold my-5">Here you can sell your claimed produce</h2>
+    <p class="lead grey-text w-responsive mx-auto mb-5">
+        Estimated price per unit: @Model.UnitPrice.ToString("N6") TRTL
+    </p>
+    <div class="row">
+        @if (Model.OwnedAnimals.Count > 0)
+        {
+            foreach (var produce in Model.OwnedAnimals)
+            {
+                @await Html.PartialAsync("_ProduceBox", produce, new ViewDataDictionary(ViewData) { { "UnitPrice", Model.UnitPrice } })
+            }
+        }
+        else
+        {
+            <p class="lead grey-text w-responsive mx-auto mb-5">
+                You have no animals. You can buy them <a href="/Market">here</a>
+            </p>
+        }
+
+    </div>
+</section>

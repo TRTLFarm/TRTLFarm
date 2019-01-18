@@ -1,0 +1,38 @@
+﻿@page
+@using TRTLFarm.Services.ServiceModels
+@model DepositHistoryModel
+@{
+    ViewData["Title"] = "Deposit history";
+}
+
+<section class="text-center my-5">
+    <h2 class="h1-responsive font-weight-bold my-5">Deposit history</h2>
+    <p class="lead grey-text w-responsive mx-auto mb-5">
+        Deposits are credited to your account after 10 confirmations.
+    </p>
+    <div class="row">
+        <table class="table responsive">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Hash</th>
+                    <th scope="col">Confirms</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(int i = 1; i <= Model.Deposits.Count; i++)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@Model.Deposits[i-1].amount</td>
+                        <td>@Model.Deposits[i-1].transactionHash</td>
+                        <td>@Model.Deposits[i-1].confirms</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</section>

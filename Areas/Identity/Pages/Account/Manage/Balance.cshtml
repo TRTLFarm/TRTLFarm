@@ -1,0 +1,23 @@
+﻿@page
+@model BalanceModel
+@{
+    ViewData["Title"] = "Balance page";
+}
+
+<h4>@ViewData["Title"]</h4>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="TRTLAddress"></label>
+            <input asp-for="TRTLAddress" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="TRTLPaymentId"></label>
+            <input asp-for="TRTLPaymentId" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

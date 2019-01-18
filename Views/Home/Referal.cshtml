@@ -1,0 +1,27 @@
+﻿@using TRTLFarm.ViewModels
+@model ReferalModel
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Referal page";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+<section class="text-center my-5">
+    <h2 class="h1-responsive font-weight-bold my-5">Here you can see your referal code</h2>
+    <p class="lead grey-text w-responsive mx-auto mb-5">
+        As a referer you earn 5% of all deposits from the people that used your link to register.
+    </p>
+    <div class="row">
+        <h4>Your link is: <a href="@Model.ReferalLink" target="_blank">@Model.ReferalLink</a></h4>
+    </div>
+    <div class="row">
+        <h5>Your referals: @Model.ReferalCount</h5>
+    </div>
+    <div class="row">
+        <h5>Your rewards: @Model.ReferalCommisonsTRTL TRTL</h5>
+    </div>
+</section>
+}

@@ -1,0 +1,35 @@
+﻿@using TRTLFarm.Models
+@model UserAnimals
+@{ 
+
+    decimal UnitPrice = (decimal)ViewData["UnitPrice"];
+}
+<form asp-controller="Market" asp-action="SellProduce" method="post">
+    <input asp-for="@Model.UserId" type="hidden" />
+    <input asp-for="@Model.Id" type="hidden" />
+    <div class="col-md-4 animalBox">
+        <div class="profile-sidebar">
+            <div class="profile-userpic">
+                <img src="@Model.Animal.ProduceImage" class="img-responsive" alt="@Model.Animal.Name">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    @Model.Animal.ProduceName
+                </div>
+                <div class="profile-usertitle-job">
+                    Inventory: @Model.ClaimedProduceCount
+                </div>
+            </div>
+
+            <div class="profile-userbuttons">
+                @if (@Model.ClaimedProduceCount > 0)
+                {
+                     <button type="submit" class="btn btn-success btn-sm">Sell for @((UnitPrice * Model.ClaimedProduceCount).ToString("N6")) TRTL</button>
+                }
+            </div>
+        </div>
+
+    </div>
+</form>
+
+

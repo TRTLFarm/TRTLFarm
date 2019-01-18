@@ -1,0 +1,47 @@
+﻿@using TRTLFarm.ViewModels
+@model HomeModel
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Production area";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <section class="text-center my-5">
+        <h2 class="h1-responsive font-weight-bold my-5">Here you can see your production area</h2>
+        <p class="lead grey-text w-responsive mx-auto mb-5">
+            Your production area shows how much of each units you own, and production that they do.
+            You can claim only full units. Means that if your production is ie: 1.4594 you will claim 1 and 0.4594 will stay as unclaimed.
+        </p>
+        <div class="row">
+            @if (Model.OwnedAnimals.Count > 0)
+            {
+                foreach (var animal in Model.OwnedAnimals)
+                {
+                    @await Html.PartialAsync("_AnimalBox", animal)
+                }
+            }
+            else
+            {
+                <p class="lead grey-text w-responsive mx-auto mb-5">
+                  You have no animals. You can buy them <a href="/Market">here</a>
+                </p>
+            }
+
+        </div>
+
+    </section>
+}
+else
+{
+    <section class="text-center my-5">
+        <h2 class="h1-responsive font-weight-bold my-5">TRTLFarm - First farming game that can be played with TurtleCoins</h2>
+        <img src="~/images/trtl.png" alt="TurtleCoin"/>
+        <p class="lead grey-text w-responsive mx-auto mb-5">
+            TRTLFarm is a farming simulator and idle game played with and for TurtleCoin using TRTL-Services. The more animals you have, the more product they produce. Buy more animals with your trtl to multiply your production, or cash them out for TurtleCoin!
+        </p>
+    </section>
+}
+

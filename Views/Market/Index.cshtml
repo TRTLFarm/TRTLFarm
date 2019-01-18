@@ -1,0 +1,64 @@
+﻿@model List<Animal>
+@{
+    ViewData["Title"] = "Market";
+}
+
+<section class="text-center my-5">
+    <h2 class="h1-responsive font-weight-bold my-5">Here you can buy new or more production units</h2>
+
+    @if (TempData["ERROR"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ERROR"].ToString()
+        </div>
+    }
+    @if (TempData["SUCCESS"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SUCCESS"].ToString()
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var animal in Model)
+        {
+            <form asp-controller="Market" asp-action="Buy" method="post">
+                <div class="col-md-4 animalBox">
+                    <div class="profile-sidebar">
+                        <div class="profile-userpic">
+                            <img src="@animal.ImagePath" class="img-responsive" alt="@animal.Name">
+                        </div>
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">
+                                @animal.Name
+                            </div>
+                            <div class="profile-usertitle-job">
+                                Production: @animal.ProductionSpeed @animal.ProductionUnit
+                            </div>
+                            <div class="profile-usertitle-name">
+                                @animal.Price.ToString("F") TRTL
+                            </div>
+                        </div>
+                        <div class="profile-userbuttons">
+                            <div class="profile-usertitle-name">
+                                <input class="animal_Quantity" asp-for="@animal.Quantity" type="number" value="1" data-unitPrice="@animal.Price" />
+                            </div>
+                        </div>
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">
+                                Subtotal: <span class="subTotalBuy">@animal.Price.ToString("F")</span> TRTL
+                            </div>
+                        </div>
+                        <div class="profile-userbuttons">
+                            <button type="submit" class="btn btn-success btn-sm">Buy</button>
+                        </div>
+                        <input asp-for="@animal.Id" type="hidden" />
+                        <input asp-for="@animal.Name" type="hidden" />
+                    </div>
+
+                </div>
+            </form>
+        }
+
+    </div>
+</section>

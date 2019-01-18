@@ -1,0 +1,51 @@
+﻿@using TRTLFarm.Models
+@model UserAnimals
+@{ 
+    var dateNow = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+}
+
+
+<form asp-controller="Home" asp-action="Claim" method="post">
+    <div class="col-md-4 animalBox">
+        <div class="profile-sidebar">
+            <div class="profile-userpic">
+                <img src="@Model.Animal.ImagePath" class="img-responsive" alt="@Model.Animal.Name">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    You own: @Model.AnimalCount @Model.Animal.Name
+                </div>
+            </div>
+            <div class="profile-userbuttons">
+                <div class="profile-usertitle-name">
+                    <span class="produced-@Model.Id"></span> @Model.Animal.ProduceName
+                </div>
+            </div>
+            <script type="text/javascript">
+                function RunUpdateAnimalProduction() {
+                    ShowProduction('@Model.AnimalCount', '@Model.Animal.ProductionTimeSeconds', '@Model.Animal.ProductionSpeed', '@Model.LastClaimTime.ToString("dd.MM.yyyy HH:mm:ss")', '@Model.Id');
+                }
+
+                var myVar = setInterval(RunUpdateAnimalProduction, 250);
+                function ShowProduction(AnimalCount, ProductionTimeSeconds, ProductionSpeed, LastClaimTime, id) {
+                    var utcMomentNow = moment.utc();
+                    var lastClaimDate = moment.utc(LastClaimTime, 'DD.MM.YYYY HH:mm:ss');
+                    var difSeconds = moment.duration(utcMomentNow.diff(lastClaimDate)).asSeconds();
+                    var produced = (difSeconds / ProductionTimeSeconds) * AnimalCount * parseFloat(ProductionSpeed);
+                    $(".produced-" + id).text(produced.toFixed(5));
+                    if (produced.toFixed(5) > 1) {
+                        $(".claim-" + id).removeAttr("disabled");
+                    }
+                }
+            </script>
+            <div class="profile-userbuttons">
+                <button type="submit" class="btn btn-success btn-sm claim-@Model.Id" disabled>Claim production</button>
+            </div>
+            <input asp-for="@Model.Id" type="hidden" />
+            <input asp-for="@Model.UserId" type="hidden" />
+            <input asp-for="@Model.AnimalId" type="hidden" />
+        </div>
+
+    </div>
+</form>
+
