@@ -2,3 +2,5 @@
 appsettings\.Development\.json
 
 appsettings\.json
+/obj/Debug/netcoreapp2.1
+/obj
