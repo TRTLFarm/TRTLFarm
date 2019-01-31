@@ -22,5 +22,7 @@ namespace TRTLFarm.Data
         public DbSet<WebHookMessages> WebHookMessages { get; set; }
         public DbSet<AdminModel> AdminModel { get; set; }
         public DbSet<Withdrawal> Withdrawals { get; set; }
+        public DbSet<SpecialAnimal> SpecialAnimals { get; set; }
+        public DbSet<TheftCooldown> TheftCooldown { get; set; }
     }
 }
